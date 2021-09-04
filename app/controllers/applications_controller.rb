@@ -1,7 +1,10 @@
 class ApplicationsController < ApplicationController
   def show
     @application = Application.find(params[:application_id])
-    if params[:search]
+    if params[:pet_id]
+      @pet = Pet.find(params[:pet_id])
+      ApplicationPet.create(pet: @pet, application: @application)
+    elsif params[:search]
       @pets = Pet.search(params[:search])
     end
   end
@@ -12,7 +15,6 @@ class ApplicationsController < ApplicationController
 
   def create
     application = Application.create(application_params)
-    # redirect_to "/applications/#{application.id}"
     
     if application.save
       redirect_to "/applications/#{application.id}"

@@ -24,6 +24,6 @@
 
 <% @pets&.each do |pet| %>
   <ul>
-    <li><%= pet.name %></li>
+    <li><%= pet.name %> <%= button_to "Adopt this Pet", "/applications/#{@application.id}", method: :post, params: {pet_id: "#{pet.id}"} %></li>
   </ul>
 <% end %>
