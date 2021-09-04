@@ -1,4 +1,5 @@
-<h3><%= @application.name %></h3>
+<h2><%= @application.name %></h2>
+
 <ul>
   <li>Street: <%= @application.street %></li>
   <li>City: <%= @application.city %></li>
@@ -13,3 +14,16 @@
     <% end %>
   <li>Status: <%= @application.status %></li>
 </ul>
+
+<h3>Add a Pet to this Application</h3>
+<%= form_with url: "/applications/#{@application.id}", local: true do |form| %>
+  <%= form.label :search, "Pet Name" %>
+  <%= form.text_field :search %>
+  <%= form.submit "Search Pet" %>
+<% end %>
+
+<% @pets&.each do |pet| %>
+  <ul>
+    <li><%= pet.name %></li>
+  </ul>
+<% end %>
