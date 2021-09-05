@@ -52,33 +52,6 @@ describe 'applications show page' do
 
   describe 'applications not submitted' do
     before(:each) do
-      # @shelter = Shelter.create!(
-      #   name: "A Shelter",
-      #   foster_program: true,
-      #   city: "A City",
-      #   rank: 5
-      # )
-      # @pet_1 = @shelter.pets.create!(
-      #   name: "Bob",
-      #   age: 3,
-      #   breed: "Pet Breed",
-      #   adoptable: true
-      # )
-      # @pet_2 = @shelter.pets.create!(
-      #   name: "Dodo",
-      #   age: 6,
-      #   breed: "Another Pet Breed",
-      #   adoptable: true
-      # )
-      # @application = Application.create!(
-      #   name: "Your Name",
-      #   street: "1234 Your Street",
-      #   city: "Your City",
-      #   state: "YS",
-      #   zipcode: 99999,
-      #   description: "Your description of why you'd be a good home.",
-      #   status: "Your Status"
-      # )
       @shelter = create(:shelter)
       @pet_1 = create(:pet, shelter: @shelter)
       @pet_2 = create(:pet, shelter: @shelter)
@@ -92,7 +65,6 @@ describe 'applications show page' do
 
       fill_in :search, with: "#{@pet_1.name}"
       click_button "Search Pet"
-      save_and_open_page
 
       expect(current_path).to eq("/applications/#{@application.id}")
       expect(page).to have_content("#{@pet_1.name}")
@@ -104,10 +76,30 @@ describe 'applications show page' do
       click_button "Search Pet"
 
       expect(page).to have_button("Adopt this Pet")
+      
       click_button "Adopt this Pet"
-      save_and_open_page
+
+      within("#pet-#{@pet_1.id}") do
+        expect(has_link?("#{@pet_1.name}")).to eq(true)
+      end
       
       expect(current_path).to eq("/applications/#{@application.id}")
+    end
+
+    it 'has a button to submit an application' do
+      expect(page).to_not have_button("Submit")
+
+      fill_in :search, with: "#{@pet_1.name}"
+      click_button "Search Pet"
+      click_button "Adopt this Pet"
+
+      expect(page).to have_button("Submit")
+
+      fill_in :description, with: "Because I'm rich"
+      click_button "Submit"
+
+      save_and_open_page
+      expect(page).to_not have_content("Add a Pet to this Applicaiton")
     end
   end
 end
