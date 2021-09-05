@@ -1,0 +1,7 @@
+<% @shelters.each do |shelter| %>
+  <ul>
+    <section id="shelter-<%= shelter.id %>">
+      <li><h3><%= link_to "#{shelter.name}", "shelters/#{shelter.id}" %></h3></li>
+    </section>
+  </ul>
+<% end %>
