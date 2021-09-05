@@ -1,7 +1,21 @@
+<h2>Shelters</h2>
 <% @shelters.each do |shelter| %>
   <ul>
     <section id="shelter-<%= shelter.id %>">
-      <li><h3><%= link_to "#{shelter.name}", "shelters/#{shelter.id}" %></h3></li>
+      <li><%= link_to "#{shelter.name}", "shelters/#{shelter.id}" %></li>
     </section>
   </ul>
+<% end %>
+
+<% if @pending.empty? == false %>
+  <h2>Pending Applications</h2>
+    <section id="pending_applications">
+      <% @pending.each do |shelter| %>
+        <ul>
+          <section id="pending-<%= shelter.id %>">
+            <li><%= link_to "#{shelter.name}", "shelters/#{shelter.id}" %></li>
+          </section>
+        </ul>
+      <% end %>
+    </section>
 <% end %>
