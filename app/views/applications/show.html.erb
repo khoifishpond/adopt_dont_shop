@@ -16,6 +16,7 @@
     <% end %>
   <li>Status: <%= @application.status %></li>
 </ul>
+
 <% if @application.status == "In Progress"%>
   <% if @application.pets.count >= 1 %>
     <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |form| %>

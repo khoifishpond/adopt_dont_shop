@@ -21,7 +21,7 @@ describe 'applications show page' do
         breed: "Another Pet Breed",
         adoptable: true
       )
-      @app = Application.create!(
+      @application = Application.create!(
         name: "Your Name",
         street: "1234 Your Street",
         city: "Your City",
@@ -30,19 +30,19 @@ describe 'applications show page' do
         description: "Your description of why you'd be a good home.",
         status: "Your Status"
       )
-      ApplicationPet.create!(pet: @pet_1, application: @app)
-      ApplicationPet.create!(pet: @pet_2, application: @app)
+      ApplicationPet.create!(pet: @pet_1, application: @application)
+      ApplicationPet.create!(pet: @pet_2, application: @application)
     end
     it 'shows application attributes' do
-      visit "/applications/#{@app.id}"
+      visit "/applications/#{@application.id}"
       
-      expect(page).to have_content(@app.name)
-      expect(page).to have_content(@app.street)
-      expect(page).to have_content(@app.city)
-      expect(page).to have_content(@app.state)
-      expect(page).to have_content(@app.zipcode)
-      expect(page).to have_content(@app.description)
-      expect(page).to have_content(@app.status)
+      expect(page).to have_content(@application.name)
+      expect(page).to have_content(@application.street)
+      expect(page).to have_content(@application.city)
+      expect(page).to have_content(@application.state)
+      expect(page).to have_content(@application.zipcode)
+      expect(page).to have_content(@application.description)
+      expect(page).to have_content(@application.status)
       expect(has_link?("#{@pet_1.name}")).to eq(true)
       expect(page).to have_content(@pet_1.name)
       expect(has_link?("#{@pet_2.name}")).to eq(true)
@@ -92,13 +92,15 @@ describe 'applications show page' do
       fill_in :search, with: "#{@pet_1.name}"
       click_button "Search Pet"
       click_button "Adopt this Pet"
-
+      fill_in :search, with: "#{@pet_2.name}"
+      click_button "Search Pet"
+      click_button "Adopt this Pet"
+      
       expect(page).to have_button("Submit")
 
       fill_in :description, with: "Because I'm rich"
       click_button "Submit"
 
-      save_and_open_page
       expect(page).to_not have_content("Add a Pet to this Applicaiton")
     end
   end
