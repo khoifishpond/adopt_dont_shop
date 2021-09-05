@@ -9,21 +9,32 @@
   <li>Pets:</li>
     <% @application.pets.each do |pet| %>
       <ul>
-        <li><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></li>
+        <section id="pet-<%= pet.id %>">
+          <li><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></li>
+        </section>
       </ul>
     <% end %>
   <li>Status: <%= @application.status %></li>
 </ul>
+<% if @application.status == "In Progress"%>
+  <% if @application.pets.count >= 1 %>
+    <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |form| %>
+      <%= form.label :description, "Why would you make a good owner?" %><br>
+      <%= form.text_area :description %><br>
+      <%= form.submit "Submit" %>
+    <% end %>
+  <% end %>
 
-<h3>Add a Pet to this Application</h3>
-<%= form_with url: "/applications/#{@application.id}", local: true do |form| %>
-  <%= form.label :search, "Pet Name" %>
-  <%= form.text_field :search %>
-  <%= form.submit "Search Pet" %>
-<% end %>
+  <h3>Add a Pet to this Application</h3>
+  <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |form| %>
+    <%= form.label :search, "Pet Name" %>
+    <%= form.text_field :search %>
+    <%= form.submit "Search Pet" %>
+  <% end %>
 
-<% @pets&.each do |pet| %>
-  <ul>
-    <li><%= pet.name %> <%= button_to "Adopt this Pet", "/applications/#{@application.id}", method: :post, params: {pet_id: "#{pet.id}"} %></li>
-  </ul>
+  <% @pets&.each do |pet| %>
+    <ul>
+      <li><%= pet.name %> <%= button_to "Adopt this Pet", "/applications/#{@application.id}", method: :post, params: {pet_id: "#{pet.id}"} %></li>
+    </ul>
+  <% end %>
 <% end %>
