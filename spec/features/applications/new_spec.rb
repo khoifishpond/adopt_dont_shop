@@ -11,15 +11,12 @@ describe 'new application page' do
     fill_in :zipcode, with: 90909
 
     click_on "Submit"
-    save_and_open_page
     expect(current_path).to eq("/applications/#{Application.last.id}")
     expect(page).to have_content("#{Application.last.name}")
     expect(page).to have_content("#{Application.last.street}")
     expect(page).to have_content("#{Application.last.city}")
     expect(page).to have_content("#{Application.last.state}")
     expect(page).to have_content("#{Application.last.zipcode}")
-    # expect(page).to have_content("#{Application.last.description}")
-    # expect(page).to have_content("#{Application.last.status}")
   end
 
   it 'displays an error message' do
