@@ -1,4 +1,4 @@
-<h2>Shelters</h2>
+<h1>Shelters</h1>
 <% @shelters.each do |shelter| %>
   <ul>
     <section id="shelter-<%= shelter.id %>">
@@ -8,7 +8,7 @@
 <% end %>
 
 <% if @pending.empty? == false %>
-  <h2>Pending Applications</h2>
+  <h1>Pending Applications</h1>
     <section id="pending_applications">
       <% @pending.each do |shelter| %>
         <ul>
