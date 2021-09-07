@@ -27,7 +27,6 @@ describe 'admin shelter index page' do
     visit "/admin/shelters"
 
     expect(page).to have_content("Pending Applications")
-    save_and_open_page
 
     within("#pending_applications") do
       expect(has_content?("#{@shelter_1.name}")).to eq(true)

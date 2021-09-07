@@ -1,0 +1,15 @@
+<h1>Pets on Application</h1>
+<% if @application.status == "Pending" %>
+  <% @application.pets.each_with_index do |pet, index| %>
+    <ul>
+      <section id="pet-<%= pet.id %>">
+        <li><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></li>
+        <%= @application.application_pets[index].status %>
+        <% if @application.application_pets[index].status.nil? %>
+          <%= button_to "Approve", "/admin/applications/#{@application.id}", method: :patch, params: {pet_id: pet.id, status: "Approved"} %>
+          <%= button_to "Reject", "/admin/applications/#{@application.id}", method: :patch, params: {pet_id: pet.id, status: "Rejected"} %>
+        <% end %>
+      </section>
+    </ul>
+  <% end %>
+<% end %>
