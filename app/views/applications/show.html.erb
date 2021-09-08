@@ -27,11 +27,7 @@
   <% end %>
 
   <h3>Add a Pet to this Application</h3>
-  <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |form| %>
-    <%= form.label :search, "Pet Name" %>
-    <%= form.text_field :search %>
-    <%= form.submit "Search Pet" %>
-  <% end %>
+  <%= render partial: '/shared/search', locals: {url: "/applications/#{@application.id}"} %>
 
   <% @pets&.each do |pet| %>
     <ul>

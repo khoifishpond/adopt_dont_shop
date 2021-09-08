@@ -64,7 +64,7 @@ describe 'applications show page' do
       expect(page).to have_content("Add a Pet to this Application")
 
       fill_in :search, with: "#{@pet_1.name}"
-      click_button "Search Pet"
+      click_button "Search"
 
       expect(current_path).to eq("/applications/#{@application.id}")
       expect(page).to have_content("#{@pet_1.name}")
@@ -73,7 +73,7 @@ describe 'applications show page' do
 
     it 'it has a button to adopt pet' do
       fill_in :search, with: "#{@pet_1.name}"
-      click_button "Search Pet"
+      click_button "Search"
 
       expect(page).to have_button("Adopt this Pet")
       
@@ -90,10 +90,10 @@ describe 'applications show page' do
       expect(page).to_not have_button("Submit")
 
       fill_in :search, with: "#{@pet_1.name}"
-      click_button "Search Pet"
+      click_button "Search"
       click_button "Adopt this Pet"
       fill_in :search, with: "#{@pet_2.name}"
-      click_button "Search Pet"
+      click_button "Search"
       click_button "Adopt this Pet"
       
       expect(page).to have_button("Submit")
