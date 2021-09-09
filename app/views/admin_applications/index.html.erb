@@ -1,0 +1,22 @@
+<h1>All Applications</h1>
+<% @applications.each do |application| %>
+  <section id="application-<%= application.id %>">
+    <h3><%= link_to application.name, "/admin/applications/#{application.id}" %></h3>
+    <ul>
+      <li>Street: <%= application.street %></li>
+      <li>City: <%= application.city %></li>
+      <li>State: <%= application.state %></li>
+      <li>Zipcode: <%= application.zipcode %></li>
+      <li>Description: <%= application.description %></li>
+      <li>Pets: </li>
+        <% application.pets.each do |pet| %>
+          <ul>
+            <section id="pet-<%= pet.id %>">
+              <li><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></li>
+            </section>
+          </ul>
+        <% end %>
+      <li>Status: <%= application.status %></li>
+    </ul>
+  </section>
+<% end %>
