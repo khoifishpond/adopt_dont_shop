@@ -29,6 +29,7 @@ describe 'new application page' do
     fill_in :zipcode, with: 90909
 
     click_on "Submit"
+    expect(current_path).to eq('/applications/new')
     expect(page).to have_content("Error: Street can't be blank, City can't be blank")
   end
 end
